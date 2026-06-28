@@ -1,5 +1,6 @@
 package app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,20 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Carro {
+public class Marca {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-    private int ano;
+    private String cnpj;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("carros")
-    private Marca marca;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "carro_proprietario")
-    private List<Proprietario> proprietarios;
-
+    @OneToMany(mappedBy = "marca")
+    @JsonIgnoreProperties("marca")
+    private List<Carro> carros;
 }
