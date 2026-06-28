@@ -1,6 +1,7 @@
 package app.service;
 
 import app.entity.Carro;
+import app.entity.Marca;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import app.repository.CarroRepository;
@@ -37,5 +38,19 @@ public class CarroService {
     public Carro findById(long  id){
         Carro carro = this.carroRepository.findById(id).get();
         return carro;
+    }
+
+    public List<Carro> findByNome(String nome){
+       return this.carroRepository.findByNome(nome);
+    }
+
+    public List<Carro> findByMarca(long idMarca){
+        Marca marca = new Marca();
+        marca.setId(idMarca);
+        return this.carroRepository.findByMarca(marca);
+    }
+
+    public List<Carro> findAcimaAno(int ano){
+        return this.carroRepository.findAcimaAno(ano);
     }
 }
